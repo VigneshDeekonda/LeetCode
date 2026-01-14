@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        unordered_map<int, int> mp;   // remainder -> index
+        mp[0] = -1;   // important for subarray starting from index 0
+
+        int sum = 0;
+
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            int remainder = sum % k;
+
+            if (mp.find(remainder) != mp.end()) {
+                if (i - mp[remainder] >= 2)
+                    return true;
+            } else {
+                mp[remainder] = i;   // store first occurrence index
+            }
+        }
+        return false;
+    }
+};
