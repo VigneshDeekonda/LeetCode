@@ -1,0 +1,60 @@
+// class Solution {
+// public:
+//     vector<int> minBitwiseArray(vector<int>& nums) {
+//         vector<int> ans;
+//         for (int num : nums) {
+//             if (num == 2) {
+//                 ans.push_back(-1);
+//                 continue;
+//             }
+//             bool found = false;
+//             for (int k = 1; k < 32; ++k) {
+//                 if (((num >> k) & 1) == 0) {
+//                     ans.push_back(num ^ (1 << (k - 1)));
+//                     found = true;
+//                     break;
+//                 }
+//             }
+//             if (!found) {
+//                 ans.push_back(-1);
+//             }
+//         }
+//         return ans;
+//     }
+// };
+
+
+
+class Solution {
+public:
+    vector<int> minBitwiseArray(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> result;
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 2) {
+                result.push_back(-1);
+                continue;
+            }
+
+            bool found = false;
+
+            for (int j = 1; j < 32; j++) {
+                if (nums[i] & (1 << j)) {
+                    continue;
+                }
+
+                int x = nums[i] ^ (1 << (j - 1));
+                result.push_back(x);
+                found = true;
+                break;
+            }
+
+            if (!found) {
+                result.push_back(-1);
+            }
+        }
+
+        return result;
+    }
+};
